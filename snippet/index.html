@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Snippet</title>
+  <style>
+    body {
+      background-color: #d8d8d8; /* matches your album preview UI */
+      color: #262626; /* typography colour */
+      font-family: 'DM Mono', monospace;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+    h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    audio {
+      width: 300px;
+      outline: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>New Snippet</h1>
+  <audio controls autoplay>
+    <source src="snippet.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+</body>
+</html>
