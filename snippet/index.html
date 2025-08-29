@@ -1,51 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Snippet</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>AMEN TRANSLATES TO SO BE IT</title>
 <style>
-  body {
-    background-color: #000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    margin: 0;
+  :root{--bg:#000000;--fg:#ffffff}
+  html,body{height:100%;margin:0;background:var(--bg);color:var(--fg);font-family:"Arial",sans-serif,sans-serif;display:flex;align-items:center;justify-content:center}
+  .wrap{text-align:center;padding:1.5rem}
+  h1{font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;font-size:1.1rem;margin:0 0 0.8rem}
+  audio{display:none}
+  /* tiny circular play button that only appears if needed */
+  #playBtn{
+    display:none;
+    width:44px;
+    height:44px;
+    border-radius:50%;
+    border:0;
+    background:var(--fg);
+    color:var(--bg);
+    font-size:18px;
+    line-height:1;
+    cursor:pointer;
+    align-items:center;
+    justify-content:center;
+    box-shadow:0 2px 6px rgba(0,0,0,0.08);
   }
-  #playBtn {
-    display: none;
-    padding: 1rem 2rem;
-    font-size: 1rem;
-    cursor: pointer;
-    color: #000;
-    background: #fff;
-    border: none;
-    border-radius: 4px;
-  }
+  #hint{font-size:0.85rem;opacity:0.9;margin-top:0.6rem}
 </style>
 </head>
 <body>
-<audio id="player" preload="auto">
-  <source src="snippet.mp3" type="audio/mpeg">
-  Your browser does not support the audio element.
-</audio>
-<button id="playBtn">ATTSBI SNIPPET</button>
+  <div class="wrap">
+
+    <audio id="player" preload="auto" playsinline>
+      <source src="snippet.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
+
+    <button id="playBtn" aria-label="Play snippet">▶</button>
+    <div id="hint" aria-live="polite"></div>
+  </div>
 
 <script>
-const audio = document.getElementById('player');
-const btn = document.getElementById('playBtn');
+(function(){
+  const audio = document.getElementById('player');
+  const btn = document.getElementById('playBtn');
+  const hint = document.getElementById('hint');
 
-// Try autoplay
-audio.play().catch(() => {
-  // Autoplay blocked, show button
-  btn.style.display = 'inline-block';
-});
+  function showPlayButton(message){
+    btn.style.display = 'inline-flex';
+    hint.textContent = message || 'Tap to play the snippet.';
+    btn.focus();
+  }
 
-// Play on button click if needed
-btn.addEventListener('click', () => {
-  audio.play();
-  btn.style.display = 'none';
-});
+  function tryPlay(){
+    // attempt playback
+    audio.play().then(() => {
+      // success
+      btn.style.display = 'none';
+      hint.textContent = '';
+    }).catch((err) => {
+      // autoplay blocked or some other error
+      // show a tiny play button so user can start playback manually
+      showPlayButton('Autoplay blocked — tap to start.');
+      btn.addEventListener('click', () => {
+        audio.play().then(() => {
+          btn.style.display = 'none';
+          hint.textContent = '';
+        }).catch(() => {
+          hint.textContent = 'Playback failed — check the file path or browser settings.';
+        });
+      }, { once: true });
+    });
+  }
+
+  // Try on load, and also when page becomes visible (some browsers behave oddly)
+  document.addEventListener('DOMContentLoaded', tryPlay);
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') tryPlay();
+  });
+})();
 </script>
 </body>
 </html>
