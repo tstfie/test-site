@@ -5,8 +5,8 @@
   <title>Snippet</title>
   <style>
     body {
-      background-color: #ededed; /* matches your album preview UI */
-      color: #262626; /* typography colour */
+      background-color: #ededed;
+      color: #262626;
       font-family: 'DM Mono', monospace;
       display: flex;
       flex-direction: column;
@@ -17,19 +17,17 @@
     }
     h1 {
       font-family: 'Arial', sans-serif;
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
+      font-size: 1rem;
     }
     audio {
-      width: 300px;
-      outline: none;
+      display: none; /* hide the player completely */
     }
   </style>
 </head>
 <body>
-  <h1>Amen Translates to So Be It</h1>
-  <audio controls autoplay>
-    <source src="ATTSBI Snippet.mp3" type="audio/mpeg">
+  <h1>New Snippet</h1>
+  <audio autoplay>
+    <source src="snippet.mp3" type="audio/mpeg">
     Your browser does not support the audio element.
   </audio>
 </body>
