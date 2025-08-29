@@ -27,6 +27,7 @@
     box-shadow:0 2px 6px rgba(0,0,0,0.08);
   }
   #hint{font-size:0.85rem;opacity:0.9;margin-top:0.6rem}
+  #note{font-size:0.85rem;margin-top:1rem;display:none;text-align:center}
 </style>
 </head>
 <body>
@@ -39,6 +40,7 @@
 
     <button id="playBtn" aria-label="Play snippet">▶</button>
     <div id="hint" aria-live="polite"></div>
+    <div id="note">thank you. for more info, visit <a href="https://is.gd/spiritsep" target="_blank" style="color:#fff;">is.gd/spiritsep</a></div>
   </div>
 
 <script>
@@ -46,6 +48,7 @@
   const audio = document.getElementById('player');
   const btn = document.getElementById('playBtn');
   const hint = document.getElementById('hint');
+  const note = document.getElementById('note');
 
   function showPlayButton(message){
     btn.style.display = 'inline-flex';
@@ -61,7 +64,6 @@
       hint.textContent = '';
     }).catch((err) => {
       // autoplay blocked or some other error
-      // show a tiny play button so user can start playback manually
       showPlayButton('AUTOPLAY BLOCKED. TAP TO START.');
       btn.addEventListener('click', () => {
         audio.play().then(() => {
@@ -73,6 +75,11 @@
       }, { once: true });
     });
   }
+
+  // Show note after snippet ends
+  audio.addEventListener('ended', () => {
+    note.style.display = 'block';
+  });
 
   // Try on load, and also when page becomes visible (some browsers behave oddly)
   document.addEventListener('DOMContentLoaded', tryPlay);
