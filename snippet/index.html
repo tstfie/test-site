@@ -1,93 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>AMEN TRANSLATES TO SO BE IT</title>
-<style>
-  :root{--bg:#000000;--fg:#ffffff}
-  html,body{
-    height:100%;
-    margin:0;
-    background:var(--bg);
-    color:var(--fg);
-    font-family:Helvetica,Arial,sans-serif;
-    display:flex;
-    align-items:center;
-    justify-content:center
-  }
-  .wrap{text-align:center;padding:1.5rem}
-  h1{
-    font-family:Helvetica,Arial,sans-serif;
-    font-size:1.1rem;
-    margin:0 0 0.8rem
-  }
-  audio{display:none}
-  #playBtn{
-    display:none;
-    width:44px;
-    height:44px;
-    border-radius:50%;
-    border:0;
-    background:var(--fg);
-    color:var(--bg);
-    font-size:18px;
-    line-height:1;
-    cursor:pointer;
-    align-items:center;
-    justify-content:center;
-    box-shadow:0 2px 6px rgba(0,0,0,0.08)
-  }
-  #hint{font-size:0.85rem;opacity:0.9;margin-top:0.6rem}
-</style>
+  <meta charset="UTF-8">
+  <title>AMEN TRANSLATES TO SO BE IT</title>
+  <style>
+    body {
+      background-color: #000000;
+      color: #ffffff;
+      font-family: 'Arial', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+    h1 {
+      font-family: 'Arial', sans-serif;
+      font-size: 1rem;
+    }
+    audio {
+      display: none; /* hide the player completely */
+    }
+  </style>
 </head>
 <body>
-  <div class="wrap">
-    <h1></h1>
-
-    <audio id="player" preload="auto" playsinline>
-      <source src="snippet.mp3" type="audio/mpeg">
-      YOUR BROWSER DOES NOT SUPPORT THE AUDIO ELEMENT.
-    </audio>
-
-    <button id="playBtn" aria-label="Play snippet">▶</button>
-    <div id="hint" aria-live="polite"></div>
-  </div>
-
-<script>
-(function(){
-  const audio = document.getElementById('player');
-  const btn = document.getElementById('playBtn');
-  const hint = document.getElementById('hint');
-
-  function showPlayButton(message){
-    btn.style.display = 'inline-flex';
-    hint.textContent = message || 'TAP TO PLAY SNIPPET.';
-    btn.focus();
-  }
-
-  function tryPlay(){
-    audio.play().then(() => {
-      btn.style.display = 'none';
-      hint.textContent = '';
-    }).catch(() => {
-      showPlayButton('TAP TO PLAY SNIPPET.');
-      btn.addEventListener('click', () => {
-        audio.play().then(() => {
-          btn.style.display = 'none';
-          hint.textContent = '';
-        }).catch(() => {
-          hint.textContent = 'PLAYBACK FAILED.';
-        });
-      }, { once: true });
-    });
-  }
-
-  document.addEventListener('DOMContentLoaded', tryPlay);
-  document.addEventListener('visibilitychange', () => {
-    if (document.visibilityState === 'visible') tryPlay();
-  });
-})();
-</script>
+  <audio autoplay>
+    <source src="snippet.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
 </body>
 </html>
