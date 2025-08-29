@@ -47,7 +47,7 @@
 
     <audio id="player" preload="auto" playsinline>
       <source src="snippet.mp3" type="audio/mpeg">
-      Your browser does not support the audio element.
+      YOUR BROWSER DOES NOT SUPPORT THE AUDIO ELEMENT.
     </audio>
 
     <button id="playBtn" aria-label="Play snippet">▶</button>
@@ -62,7 +62,7 @@
 
   function showPlayButton(message){
     btn.style.display = 'inline-flex';
-    hint.textContent = message || 'Tap to play the snippet.';
+    hint.textContent = message || 'TAP TO PLAY SNIPPET.';
     btn.focus();
   }
 
@@ -71,13 +71,13 @@
       btn.style.display = 'none';
       hint.textContent = '';
     }).catch(() => {
-      showPlayButton('Autoplay blocked — tap to start.');
+      showPlayButton('TAP TO PLAY SNIPPET.');
       btn.addEventListener('click', () => {
         audio.play().then(() => {
           btn.style.display = 'none';
           hint.textContent = '';
         }).catch(() => {
-          hint.textContent = 'Playback failed — check the file path or browser settings.';
+          hint.textContent = 'PLAYBACK FAILED.';
         });
       }, { once: true });
     });
