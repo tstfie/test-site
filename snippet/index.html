@@ -19,7 +19,7 @@
     border:0;
     background:var(--fg);
     color:var(--bg);
-    font-size:18px;
+    font-size:12px;
     line-height:1;
     cursor:pointer;
     align-items:center;
@@ -49,7 +49,7 @@
 
   function showPlayButton(message){
     btn.style.display = 'inline-flex';
-    hint.textContent = message || 'Tap to play the snippet.';
+    hint.textContent = message || 'TAP TO START.';
     btn.focus();
   }
 
@@ -62,13 +62,13 @@
     }).catch((err) => {
       // autoplay blocked or some other error
       // show a tiny play button so user can start playback manually
-      showPlayButton('Autoplay blocked — tap to start.');
+      showPlayButton('AUTOPLAY BLOCKED. TAP TO START.');
       btn.addEventListener('click', () => {
         audio.play().then(() => {
           btn.style.display = 'none';
           hint.textContent = '';
         }).catch(() => {
-          hint.textContent = 'Playback failed — check the file path or browser settings.';
+          hint.textContent = 'PLAYBACK FAILED. RELOAD.';
         });
       }, { once: true });
     });
